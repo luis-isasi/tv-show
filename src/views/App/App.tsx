@@ -1,20 +1,25 @@
 import { useQuery } from 'react-query'
 import { getShows } from '@Services'
+
+import { useContextFavoriteShow } from '@Context/contextFavoriteShow'
 import ShowView from '@Components/ShowView'
 
 const App = () => {
   const { data, isLoading, error } = useQuery('shows', () => getShows())
+  const { favoriteShows } = useContextFavoriteShow()
 
-  console.log({ data })
+  console.log({ favoriteShows })
+
   const renderShows = () => {
     return data.map((show) => {
-      return <ShowView key={show.id} show={show} />
+      const favoriteShowsFilter = favoriteShows.filter((favoriteShow) => {
+        return favoriteShow.id === show.id
+      })
+      const isFavorite = favoriteShowsFilter.length > 0
+
+      return <ShowView key={show.id} show={show} isFavorite={isFavorite} />
     })
   }
-
-  if (isLoading) return <p>Loading...</p>
-
-  if (error) return <p>Error :(</p>
 
   return (
     <div className="w-full h-auto flex flex-col items-center">
@@ -29,7 +34,11 @@ const App = () => {
           View favorites
         </button>
       </div>
-      <div className="w-full max-w-4xl flex flex-col">{renderShows()}</div>
+      <div className="w-full max-w-4xl flex flex-col">
+        {isLoading && <p>Loading...</p>}
+        {error && <p>Error, Vuelve a recargar la pagína web 😕</p>}
+        {!isLoading && !error && data && renderShows()}
+      </div>
     </div>
   )
 }

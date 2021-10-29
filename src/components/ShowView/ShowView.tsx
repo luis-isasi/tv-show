@@ -1,12 +1,17 @@
-import { useRef } from 'react'
 import Image from 'next/image'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded'
 
+import { useContextFavoriteShow } from '@Context/contextFavoriteShow'
 import type { Show } from '@Types'
 import Switch from '@Components/Switch'
 
-const ShowView: React.FC<{ show: Show }> = ({ show }) => {
+const ShowView: React.FC<{ show: Show; isFavorite: boolean }> = ({
+  show,
+  isFavorite,
+}) => {
+  const { addNewFavoriteShow, deleteFavoriteShow } = useContextFavoriteShow()
+
   const {
     name,
     image: { medium },
@@ -15,10 +20,14 @@ const ShowView: React.FC<{ show: Show }> = ({ show }) => {
     language,
     premiered,
   } = show
-  console.log({ summary })
 
-  // const refDiv = useRef<HTMLDivElement>(null)
-  // refDiv.current.innerHTML = `${summary}`
+  const handleClick = () => {
+    if (isFavorite) {
+      deleteFavoriteShow(show.id)
+    } else {
+      addNewFavoriteShow(show)
+    }
+  }
 
   return (
     <article className="bg-gray-200 mb-5 flex rounded-xl">
@@ -47,7 +56,7 @@ const ShowView: React.FC<{ show: Show }> = ({ show }) => {
             </div>
           </div>
         </div>
-        <Switch />
+        <Switch isActive={isFavorite} handleClick={handleClick} />
       </div>
     </article>
   )

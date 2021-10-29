@@ -1,5 +1,6 @@
-export const USER_SESSION = 'user_session'
 export const API_BASE_URL = 'https://api.tvmaze.com'
+
+export const USER_FAVORITES_SHOWS = 'user_favorites_shows'
 
 //MEDIA QUERYS
 export const MEDIAQUERY_SM = 640

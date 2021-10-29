@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
 interface Props {
-  isActive?: boolean
+  isActive: boolean
   handleClick?: (e: React.FormEvent<HTMLButtonElement>) => void
 }
 
@@ -12,7 +12,7 @@ const Switch: React.FC<Props> = ({ isActive, handleClick }) => {
     <button
       type="button"
       className={`rounded-3xl h-6 w-12 box-border  ${
-        isActive ? 'bg-secondary-light' : 'bg-gray-400'
+        isActive ? 'bg-green-400' : 'bg-gray-400'
       } outline-none focus:outline-none transition-all duration-200`}
       onClick={handleClick}
     >

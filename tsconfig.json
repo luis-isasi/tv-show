@@ -23,8 +23,8 @@
       "@Constants": ["src/constants.ts"],
       "@Types": ["src/types.ts"],
       "@Utils": ["src/utils.ts"],
-      "@Services": ["src/services.ts"]
-      // "@Context/*": ["src/context/*"],
+      "@Services": ["src/services.ts"],
+      "@Context/*": ["src/context/*"]
       // "@Hoc/*": ["src/hoc/*"]
     }
   },

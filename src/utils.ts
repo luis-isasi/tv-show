@@ -1,44 +1,28 @@
-// import { USER_SESSION } from '@Constans'
+import { API_BASE_URL } from '@Constants'
 
 //FETCHER
 export async function fetcher<DataResponse>({
   endpoint,
   method = 'GET',
   body,
+  headers = {
+    'content-type': 'application/x-www-form-urlencoded',
+  },
 }: {
   endpoint: string
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
   body?: any
+  headers?: {
+    [key: string]: string
+  }
 }) {
-  let headers: { [key: string]: string } = {
-    'Content-Type': 'application/json',
-  }
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method,
+    headers,
+    body: JSON.stringify(body),
+  })
 
-  if (typeof window !== 'undefined') {
-    //TODO: agregar un type para user session
-    let token: string | undefined = ''
-
-    // try {
-    //   //only there's a token in local storage
-    //   const tokenFromLS = window.localStorage.getItem(USER_SESSION)
-    //   token = JSON.parse(tokenFromLS)?.token
-    // } catch (err) {
-    //   console.error(err)
-    //   token = ''
-    // }
-    headers = { ...headers, Authorization: `Bearer ${token}` }
-  }
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}${endpoint}`,
-    {
-      method: method,
-      body: JSON.stringify(body),
-      headers,
-    }
-  )
-
-  let res: { data: any } = await response.json()
+  let data = await response.json()
 
   //no necesitamos retornar todo el objeto de error ya que react-query solo necesita el mensaje de error
   //quizas en otro proyecto sin react-query, si, se deba retornar
@@ -51,5 +35,5 @@ export async function fetcher<DataResponse>({
     error?: string
   }
 
-  return res.data as MyResponse
+  return data as MyResponse
 }

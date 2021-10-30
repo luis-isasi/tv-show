@@ -40,7 +40,7 @@ const App = () => {
   )
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-5 h-auto flex flex-col items-center">
+    <div className="w-full sm:max-w-xl md:max-w-xl xl:max-w-3xl max-w-4xl mx-auto px-5 h-auto flex flex-col items-center">
       <div className="flex flex-col items-center my-4">
         <h1 className="text-4xl text-center font-semibold mb-4">My TV Shows</h1>
         <input

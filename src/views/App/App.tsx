@@ -4,6 +4,7 @@ import _debounce from 'lodash.debounce'
 
 import { useContextFavoriteShow } from '@Context/contextFavoriteShow'
 import { getShows, searchShow } from '@Services'
+import ButtonPrimary from '@Components/buttons/ButtonPrimary'
 import { renderShows } from './utils'
 import type { Show } from '@Types'
 
@@ -39,7 +40,7 @@ const App = () => {
   )
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-5 h-auto flex flex-col items-center ">
+    <div className="w-full max-w-4xl mx-auto px-5 h-auto flex flex-col items-center">
       <div className="flex flex-col items-center my-4">
         <h1 className="text-4xl text-center font-semibold mb-4">My TV Shows</h1>
         <input
@@ -49,13 +50,9 @@ const App = () => {
           placeholder="Search"
           className="border-1 border-gray-500 rounded-md py-[2px] px-3 text-base outline-none mb-4"
         />
-        <button
-          type="button"
-          onClick={handleClick}
-          className="max-w-max rounded-md bg-indigo-600 hover:bg-indigo-500 py-[2px] px-3 text-white"
-        >
+        <ButtonPrimary onClick={handleClick}>
           {isSeeFavorites ? 'View All' : 'View Favorites'}
-        </button>
+        </ButtonPrimary>
       </div>
       <div className="w-full max-w-4xl flex flex-col text-center">
         {isLoading && <p className="text-xl">Loading... 😀</p>}

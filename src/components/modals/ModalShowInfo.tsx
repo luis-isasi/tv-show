@@ -68,7 +68,7 @@ const ModalShowInfo: React.FC<Props> = ({
                 rel="noreferrer"
                 className="text-xs mb-4 underline"
               >
-                link to IMDB
+                Ver en IMDB
               </a>
             )}
             <div ref={divRef} className="text-center" />

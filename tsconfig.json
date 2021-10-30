@@ -25,7 +25,6 @@
       "@Utils": ["src/utils.ts"],
       "@Services": ["src/services.ts"],
       "@Context/*": ["src/context/*"]
-      // "@Hoc/*": ["src/hoc/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

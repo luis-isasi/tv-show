@@ -3,6 +3,8 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded'
 
 import { useContextFavoriteShow } from '@Context/contextFavoriteShow'
+import useResponsive from '@Hooks/useResponsive'
+import { MEDIAQUERY_SM } from '@Constants'
 import type { Show } from '@Types'
 import Switch from '@Components/Switch'
 
@@ -11,12 +13,14 @@ const ShowView: React.FC<{ show: Show; isFavorite: boolean }> = ({
   isFavorite,
 }) => {
   const { addNewFavoriteShow, deleteFavoriteShow } = useContextFavoriteShow()
+  const isMobile = useResponsive({
+    maxMediaQuery: MEDIAQUERY_SM,
+  })
 
   const {
     name,
     image,
     rating: { average },
-    summary,
     language,
     premiered,
   } = show
@@ -30,13 +34,14 @@ const ShowView: React.FC<{ show: Show; isFavorite: boolean }> = ({
   }
 
   return (
-    <article className="bg-gray-200 mb-5 flex rounded-xl">
+    <article className="bg-gray-200 mb-5 flex flex-col sm:flex-row rounded-xl">
       {image?.medium ? (
         <Image
+          layout={isMobile ? 'responsive' : 'fixed'}
           loader={({ src }) => `${src}`}
           src={image.medium}
-          width={150}
-          height={150}
+          width={isMobile ? 200 : 150}
+          height={isMobile ? 350 : 150}
           unoptimized={true}
           alt={name}
         />

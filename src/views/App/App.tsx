@@ -39,9 +39,9 @@ const App = () => {
   )
 
   return (
-    <div className="w-full h-auto flex flex-col items-center">
-      <div className="flex flex-col mb-4">
-        <h1 className="text-4xl font-semibold mb-4">My TV Shows</h1>
+    <div className="w-full max-w-4xl mx-auto px-5 h-auto flex flex-col items-center ">
+      <div className="flex flex-col items-center my-4">
+        <h1 className="text-4xl text-center font-semibold mb-4">My TV Shows</h1>
         <input
           type="text"
           value={textShow}
@@ -52,12 +52,12 @@ const App = () => {
         <button
           type="button"
           onClick={handleClick}
-          className="rounded-md bg-indigo-600 hover:bg-indigo-500 py-[2px] px-3 text-white"
+          className="max-w-max rounded-md bg-indigo-600 hover:bg-indigo-500 py-[2px] px-3 text-white"
         >
           {isSeeFavorites ? 'View All' : 'View Favorites'}
         </button>
       </div>
-      <div className="w-full max-w-4xl flex flex-col">
+      <div className="w-full max-w-4xl flex flex-col text-center">
         {isLoading && <p className="text-xl">Loading... 😀</p>}
         {error && (
           <p className="text-xl">Error, Vuelve a recargar la pagína web 😕</p>

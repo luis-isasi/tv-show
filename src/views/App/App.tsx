@@ -70,6 +70,7 @@ const App = () => {
           renderShows({ showlist: data, favoriteShows })}
         {showsByText.length > 1 &&
           textShow &&
+          !isSeeFavorites &&
           renderShows({ showlist: showsByText, favoriteShows })}
       </div>
     </div>

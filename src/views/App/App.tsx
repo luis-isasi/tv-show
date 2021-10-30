@@ -1,24 +1,17 @@
+import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { getShows } from '@Services'
 
 import { useContextFavoriteShow } from '@Context/contextFavoriteShow'
-import ShowView from '@Components/ShowView'
+import { renderShows } from './utils'
 
 const App = () => {
   const { data, isLoading, error } = useQuery('shows', () => getShows())
+  const [isSeeFavorites, setIsSeeFavorites] = useState<boolean>(false)
   const { favoriteShows } = useContextFavoriteShow()
 
-  console.log({ favoriteShows })
-
-  const renderShows = () => {
-    return data.map((show) => {
-      const favoriteShowsFilter = favoriteShows.filter((favoriteShow) => {
-        return favoriteShow.id === show.id
-      })
-      const isFavorite = favoriteShowsFilter.length > 0
-
-      return <ShowView key={show.id} show={show} isFavorite={isFavorite} />
-    })
+  const handleClick = () => {
+    setIsSeeFavorites(!isSeeFavorites)
   }
 
   return (
@@ -30,14 +23,26 @@ const App = () => {
           placeholder="Search"
           className="border-1 border-gray-500 rounded-md py-[2px] px-3 text-base outline-none mb-4"
         />
-        <button className="rounded-md bg-indigo-600 hover:bg-indigo-500 py-[2px] px-3 text-white">
-          View favorites
+        <button
+          type="button"
+          onClick={handleClick}
+          className="rounded-md bg-indigo-600 hover:bg-indigo-500 py-[2px] px-3 text-white"
+        >
+          {isSeeFavorites ? 'See All' : 'See Favorites'}
         </button>
       </div>
       <div className="w-full max-w-4xl flex flex-col">
-        {isLoading && <p>Loading...</p>}
-        {error && <p>Error, Vuelve a recargar la pagína web 😕</p>}
-        {!isLoading && !error && data && renderShows()}
+        {isLoading && <p className="text-xl">Loading... 😀</p>}
+        {error && (
+          <p className="text-xl">Error, Vuelve a recargar la pagína web 😕</p>
+        )}
+        {isSeeFavorites &&
+          renderShows({ showlist: favoriteShows, favoriteShows })}
+        {!isSeeFavorites &&
+          !isLoading &&
+          !error &&
+          data &&
+          renderShows({ showlist: data, favoriteShows })}
       </div>
     </div>
   )

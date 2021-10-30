@@ -7,3 +7,9 @@ export const getShows = () => {
     method: 'GET',
   })
 }
+
+export const searchShow = (text: string) => {
+  return fetcher<Show[]>({
+    endpoint: `/shows/search?q=${text}`,
+  })
+}

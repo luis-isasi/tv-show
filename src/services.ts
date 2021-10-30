@@ -9,7 +9,7 @@ export const getShows = () => {
 }
 
 export const searchShow = (text: string) => {
-  return fetcher<Show[]>({
-    endpoint: `/shows/search?q=${text}`,
+  return fetcher<{ score: number; show: Show }[]>({
+    endpoint: `/search/shows?q=${text}`,
   })
 }

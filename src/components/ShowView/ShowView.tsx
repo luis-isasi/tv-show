@@ -14,7 +14,7 @@ const ShowView: React.FC<{ show: Show; isFavorite: boolean }> = ({
 
   const {
     name,
-    image: { medium },
+    image,
     rating: { average },
     summary,
     language,
@@ -31,14 +31,20 @@ const ShowView: React.FC<{ show: Show; isFavorite: boolean }> = ({
 
   return (
     <article className="bg-gray-200 mb-5 flex rounded-xl">
-      <Image
-        loader={({ src }) => `${src}`}
-        src={medium}
-        width={150}
-        height={150}
-        unoptimized={true}
-        alt={name}
-      />
+      {image?.medium ? (
+        <Image
+          loader={({ src }) => `${src}`}
+          src={image.medium}
+          width={150}
+          height={150}
+          unoptimized={true}
+          alt={name}
+        />
+      ) : (
+        <div className="w-36 h-36 bg-gray-200 flex justify-center items-center text-center text-sm">
+          Image Not Found 😕
+        </div>
+      )}
       <div className="flex-1 px-4 py-2 flex justify-between items-center">
         <div className="">
           <h3 className="text-xl font-bold">{name}</h3>
